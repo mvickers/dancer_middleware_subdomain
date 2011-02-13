@@ -4,6 +4,7 @@ use parent qw(Plack::Middleware);
 use Data::Dumper;
 
 sub ignore_subdomains {
+    my $self = shift;
     our %ignore_subdomains;
     if(!defined(%ignore_subdomains)) {
         %ignore_subdomains = map { $_ => 1 } @{ $self->{ ignore_subdomains } };
