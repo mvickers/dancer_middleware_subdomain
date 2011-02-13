@@ -1,0 +1,26 @@
+Dancer::Middleware::Subdomain
+
+Use this library to enable a SUBDOMAIN element in the request environment. It is handy to partition your 
+application based on the subdomain in certain circumstances.
+
+Enable it in your dancer config.yml thusly
+
+plack_middlewares:
+  -
+    - "+Dancer::Middleware::Subdomain"
+    - domain
+    - your.domain
+    - ignore_subdomains
+    -
+      - www
+      - admin
+
+You need to set the domain parameter and you may set the subdomains to ignore. In the event a 
+subdomain has been ignored the SUBDOMAIN element in the request will be empty, not undefined.
+
+In  your route you can then use the following to determine which subdomain has been requested
+
+    my $subdomain = request->env->{ SUBDOMAIN };
+    if($subdomain) {
+	...
+    }
